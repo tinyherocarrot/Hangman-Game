@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+	<meta charset="UTF-8">
+	<title>Bootstrap Portfolio </title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+<!-- 	<link href="https://fonts.googleapis.com/css?family=Inconsolata|Montserrat" rel="stylesheet">
+ -->	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<!--
+______________________________________ 
+1. Theme: "Go Outside" Outdoor Adventure Hangman
+2. Decide on bootstrap grids
+3. Variables to Display: wins, current word state (starts as blanks 
+ 						 same length of current word) [JUMBOTRON??],array of letters player has guessed, # of guesses remaining, 				
+4. Other things to display: title, Theme PICTURE!, Press spacebar to begin  
+______________________________________
+-->
+<body>
+	<!-- Mask -->
+	<div class="view">
+		<div class="full-bg-img flex-center">
+
+			<header class="text-center"> 
+				<h1> Go Outside HANGMAN </h1>
+			</header>
+		    
+		    <div class="row">
+		    	<div class="container">
+			    	<div class="jumbotron center-block" id="currentWordStateElem">
+			    		<h1></h1>
+					</div>
+				</div>
+		    </div>
+
+		    <div class="row">
+		    	<div class="container">
+			    	<div class="col-md-3">
+			    		<p id="winCountElem"> 0 </p> wins
+			    	</div>
+			    	<div class="col-md-6">
+			    		<p id="lettersGuessedElem"> </p>
+			    	</div>
+			    	<div class="col-md-3">
+			    		<p id="guessesLeftElem"> 10 </p> guesses left
+			    	</div>
+		       	</div>
+		    </div>
+			
+		</div>
+	</div>
+	<!-- Mask -->
+	<script type="text/javascript" src="assets/javascript/game.js"></script> 
+	
+</body>
+</html>
