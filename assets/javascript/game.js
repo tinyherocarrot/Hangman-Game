@@ -20,7 +20,7 @@
 // ===================================
 
 // variables
-/////////////////////////////////////////////////////////
+//===================================================
 
 currentWordStateElem = document.getElementById('currentWordState');
 winCountElem = document.getElementById('winCount');
@@ -29,11 +29,11 @@ lettersGuessedElem = document.getElementById('lettersGuessed');
 
 
 var Hangman = {
-	wordBank: ['hiking'],
+	wordBank: ['hiking', 'lake', 'topography', 'permit', 'thoreau', 'backpack', 'creek', 'summit', 'boots', 'sunscreen', 'chapstick', 'nalgene', 'granola', 'trail', 'switchback'],
 	wins: 0,
 	currentWord: "",
 	currentWordState: "",
-	remainingGuesses: 10,
+	remainingGuesses: 7,
 	lettersGuessed: [],
 	
 
@@ -43,10 +43,12 @@ var Hangman = {
 		for (var i = 0; i < this.currentWord.length; i++) {
 			this.currentWordState += " _"
 		};	
-		remainingGuesses = 10;
-		lettersGuessed = [];
+		this.remainingGuesses = 7;
+		this.lettersGuessed = [];
 
 		currentWordStateElem.textContent = this.currentWordState;
+			console.log("STARTO");
+			console.log(this.currentWordState);
 		winCountElem.textContent = this.wins;
 		remainingGuessesElem.textContent = this.remainingGuesses;
 		lettersGuessedElem.textContent = this.lettersGuessed;
@@ -73,6 +75,27 @@ var Hangman = {
 		}
 		// Update currentWordStateElem with display
 		currentWordStateElem.textContent = display;
+	},
+
+	checkWin: function() {
+		// If game state matches the currentWord, report WIN!!
+		if (this.currentWordState === this.currentWord) {
+			this.wins += 1;
+			setTimeout(function() {
+				currentWordStateElem.textContent = "You guessed the word!";
+				setTimeout(function() {
+					Hangman.initializeRound();
+				}, (1000));
+			}, (1000));
+		}
+	},
+
+	checkLose: function() {
+		// If remainingGuesses hits zero, Game Over!!
+		if (this.remainingGuesses === 0) {
+			alert("GAME OVER T_T ");
+			Hangman.initializeRound();
+		}
 	}
 
 }; 
@@ -80,22 +103,14 @@ var Hangman = {
 
 
 // functions
-/////////////////////////////////////////////////////////
-
-// function guess(event) {
-// 	var keyPressed = event.key
-// 	keysPressedArray.push(keyPressed)
-// 	numberKeysPressedElem.textContent = keysPressedArray.length
-// }
+//========================================================
 
 // main logic, startup code
-//////////////////////////////////////////////////////////
-
+//========================================================
 
 document.onkeyup = function(event) {
 	//start round on press space bar 
 	if (event.key == "s") {
-		console.log("STARTO");
 		// start the round, see above for fxn def
 		Hangman.initializeRound();
 		
@@ -109,28 +124,23 @@ document.onkeyup = function(event) {
 					console.log("got one!");
 					// update currentWordState with userGuess
 					Hangman.updateGameState(userGuess);
-					// If game state matches the word, WIN!!
-					if (Hangman.currentWordState === Hangman.currentWord) {
-						alert("Nice you guessed the word!")
-					}
+					Hangman.checkWin();
 
 				} else { // if user hasnt guessed this letter and it ISNT in currentWord
-					// Decrement # of guesses
+					// Decrement # of guesses, Check for lose
 					Hangman.remainingGuesses -= 1;
 					remainingGuessesElem.textContent = Hangman.remainingGuesses;
-					// If remainingGuesses hits zero, Game Over!!
-					if (Hangman.remainingGuesses === 0) {
-						alert("GAME OVER T_T");
-					}
+					Hangman.checkLose();
+					
 				}
 				// if letter hasn't been guessed, add userGuess to lettersGuessed array
 				Hangman.lettersGuessed.push(userGuess);
-				lettersGuessedElem.textContent = Hangman.lettersGuessed;
+				lettersGuessedElem.textContent = Hangman.lettersGuessed.toString();
+				
 			} else { // if user has already guessed this letter
 				// say "You've already guessed this letter!""
 				alert("You've already guessed this letter!")
 			}
-
 		}	
 
 	}
