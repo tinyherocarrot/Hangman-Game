@@ -124,18 +124,24 @@ document.onkeyup = function(event) {
 					console.log("got one!");
 					// update currentWordState with userGuess
 					Hangman.updateGameState(userGuess);
+					Hangman.lettersGuessed.push(userGuess);
+					lettersGuessedElem.textContent = Hangman.lettersGuessed.toString();
+					
 					Hangman.checkWin();
 
 				} else { // if user hasnt guessed this letter and it ISNT in currentWord
 					// Decrement # of guesses, Check for lose
 					Hangman.remainingGuesses -= 1;
 					remainingGuessesElem.textContent = Hangman.remainingGuesses;
+					Hangman.lettersGuessed.push(userGuess);
+					lettersGuessedElem.textContent = Hangman.lettersGuessed.toString();
+					
 					Hangman.checkLose();
 					
 				}
 				// if letter hasn't been guessed, add userGuess to lettersGuessed array
-				Hangman.lettersGuessed.push(userGuess);
-				lettersGuessedElem.textContent = Hangman.lettersGuessed.toString();
+				// Hangman.lettersGuessed.push(userGuess);
+				// lettersGuessedElem.textContent = Hangman.lettersGuessed.toString();
 				
 			} else { // if user has already guessed this letter
 				// say "You've already guessed this letter!""
